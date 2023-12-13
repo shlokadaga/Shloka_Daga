@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .alert {
+        background-color: #ffc107;
+        color: #333;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .form-control {
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <h1>Create a Contact</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="contact_name">Name</label>
+        <input type="text" class="form-control" id="contact_name" name="contact_name" required>
+
+        <label for="contact_email">Email address</label>
+        <input type="email" class="form-control" id="contact_email" name="contact_email" aria-describedby="emailHelp" required>
+
+        <label for="contact_notes">Notes</label>
+        <input type="text" class="form-control"  id="contact_notes" name="contact_notes" minlength="1" required>
+
+        <input type="text" name="created_time" id="created_time" value="{{ created_time }}" hidden>
+
+        <button type="submit" class="btn-primary">Create Contact</button>
+        <a href="{% url 'home' %}" class="btn-secondary">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}
