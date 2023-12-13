@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    h1 {
+        text-align: center;
+        color: #6c757d;
+        margin-top: 30px;
+        font-size: 2em;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 10px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #d81b60;
+        border-color: #d81b60;
+    }
+
+    .table {
+        margin: 20px auto;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .table th {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .table a {
+        text-decoration: none;
+        color: #673ab7;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    .table a:hover {
+        color: #512da8;
+    }
+
+    .alert {
+        position: relative;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+        color: #fff;
+        background-color: #ff5722;
+    }
+
+    .alert button {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        padding: 1rem;
+        color: #fff;
+        background-color: #e64a19;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+</style>
+
+<h1>Contact Management</h1>
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <a href="{% url 'addContact' %}" class="btn-primary">Create a New Contact</a>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<div style="justify-content: center;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" colspan="2">Want to Change?</th>
+                <th scope="col">Contact Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Created Time</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% if all_contacts %}
+                {% for contact in all_contacts %}
+                <tr>
+                    <td><a href="{% url 'update' contact.id %}">Edit</a></td>
+                    <td><a href="{% url 'deleteConf' contact.id %}">Delete</a></td>
+                    <td><a href="{% url 'details' contact.id %}">{{contact.contact_name}}</a></td>
+                    <td>{{contact.contact_email}}</td>
+                    <td>{{contact.created_time}}</td>
+                    
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+
