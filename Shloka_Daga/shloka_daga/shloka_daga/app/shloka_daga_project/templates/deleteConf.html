@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f3f3f3;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    h1 {
+        text-align: center;
+        color: #6c757d;
+        margin-bottom: 30px;
+        font-size: 2em;
+    }
+
+    .alert {
+        background-color: #5bc0de;
+        color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    h5 {
+        text-align: left;
+        color: #5cb85c;
+        margin-bottom: 15px;
+    }
+
+    .btn-danger {
+        background-color: #6c757d;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-danger:hover {
+        background-color: #6c757d;
+    }
+
+    .btn-secondary {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+        background-color: #555;
+    }
+</style>
+
+<h1>Confirm Delete</h1>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <a href="{% url 'delete' curr_contact.id %}" class="btn-danger">Delete</a>
+    <a href="{% url 'home' %}" class="btn-secondary">Home</a>
+</div>
+
+{% endblock %}
